@@ -15,4 +15,13 @@ class TodoListController extends Controller
    public function show(TodoList $list){
         return response()->json($list);
    }
+
+   public function store(Request $request){
+
+     $this->validate($request,[
+          'name'=>'required|string|max:200',
+     ]);
+     $result = TodoList::create(['name'=>$request->name]);
+     return response()->json($result,201);
+   }
 }
